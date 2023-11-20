@@ -12,20 +12,9 @@
 
 </style>
 
+<!-- test version 1.01 test comment -->
+
 <div class="card" style="font-size:0.9em;">
-	<!-- <div class="card-header">
-		<div class="row">
-			<div class="col-6">
-				<h4>Users</h4>
-			</div>
-			<div class="col-6 text-right">
-
-			</div>
-
-		</div>
-	</div> -->
-
-
 	<div class="card-body">
 		<h5 class="card-title  w-100">
 			<div class="row">
@@ -184,8 +173,9 @@
 				}
 			}],
 			dom: 'Bfrtip',
-
-			buttons: [{
+			// lBfrtip
+			buttons: [
+				{
 					extend: 'copyHtml5',
 					exportOptions: {
 						columns: ':not(:last-child)' // Exclude the last column
