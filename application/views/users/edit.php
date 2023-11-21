@@ -24,11 +24,35 @@
 				</div>
 				<div class="row">
 					<div class="col-4 text-right">
+						<label for="pass">Password</label>
+					</div>
+					<div class="col-8">
+                        <input type="text" name="pass" value="<?php echo $user->pass; ?>" class="form-control-sm">
+						<span style="color:red;"><?php echo form_error('pass'); ?></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-4 text-right">
 						<label for="email">Email : </label>
 					</div>
 					<div class="col-8">
                         <input type="text" name="email" value="<?php echo $user->email; ?>" class="form-control-sm">
 						<span style="color:red;"><?php echo form_error('email'); ?></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-4 text-right">
+						<label for="department">Department : </label>
+					</div>
+					<div class="col-8">
+
+						<select name="department" class="form-control-sm">	
+						    <option value="" <?php echo ($user->department == '') ? 'selected' : ''; ?>>Please Select</option>					
+							<option value="Innovation" <?php echo ($user->department == 'Innovation') ? 'selected' : ''; ?>> Innovation</option>
+							<option value="Information Technology"<?php echo ($user->department == 'Information Technology') ? 'selected' : ''; ?>> Information Technology</option>
+							<!-- Add more options as needed -->
+						</select>
+						<span style="color:red;"><?php echo form_error('department'); ?></span>
 					</div>
 				</div>
 				<div class="row mt-2">

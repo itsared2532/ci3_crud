@@ -14,7 +14,22 @@ class Users extends CI_Controller {
         $this->load->library('form_validation');
     }
 
+    public function logout() {
+        // Destroy the session
+        $this->session->sess_destroy();
+
+        // Redirect to the login page or any other page after logout
+        redirect('login/index');
+    }
+
     public function index() {
+
+        // Check if the user is logged in
+        if (!$this->session->userdata('logged_in')) {
+            // If not logged in, redirect to the login page
+            redirect('login/index');
+        }
+
         // $this->load->model('user_model');
         $data['users'] = $this->user_model->get_users();
         
@@ -32,16 +47,33 @@ class Users extends CI_Controller {
         if($this->input->post()){
             $this->form_validation->set_rules('username', 'Username', 'required');
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+            $this->form_validation->set_rules('department', 'Department', 'required');
+            $this->form_validation->set_rules('pass', 'Password', 'required');
+
+            $data['username'] = $this->input->post('username');
+                $data['email'] = $this->input->post('email');
+                $data['department'] = $this->input->post('department');
+                $data['pass'] = $this->input->post('pass');
             
             if ($this->form_validation->run() === FALSE) {
                 // echo "error";
                 //echo validation_errors();
+                // $data['title'] = 'Create User';
+
+                // $this->load->view('common/header', $data);    
+                // $this->load->view('users/create');
+                // $this->load->view('common/footer');
                 //$this->load->view('users/create');
+
+                // Keep the posted data
+                
             }else{
                 // echo "success";
                 $data = array(
                     'username' => $this->input->post('username'),
-                    'email' => $this->input->post('email')
+                    'email' => $this->input->post('email'),
+                    'department' => $this->input->post('department'),
+                    'pass' => $this->input->post('pass')
                 );
 
                 $result = $this->user_model->create_user($data);
@@ -55,12 +87,17 @@ class Users extends CI_Controller {
                 redirect('users/index');
             }
             //echo "post";
+        }else{
+            $data['username'] = $this->input->post('');
+                $data['email'] = $this->input->post('');
+                $data['department'] = $this->input->post('');
+                $data['pass'] = $this->input->post('');
         }
 
         $data['title'] = 'Create User';
 
         $this->load->view('common/header', $data);    
-        $this->load->view('users/create');
+        $this->load->view('users/create', $data);
         $this->load->view('common/footer');
     }
 
@@ -86,7 +123,9 @@ class Users extends CI_Controller {
 
         $data = array(
             'username' => $this->input->post('username'),
-            'email' => $this->input->post('email')
+            'email' => $this->input->post('email'),
+            'department' => $this->input->post('department'),
+            'pass' => $this->input->post('pass')
         );
 
         $result = $this->user_model->update_user($id, $data);

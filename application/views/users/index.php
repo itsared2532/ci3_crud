@@ -1,3 +1,4 @@
+
 <!-- application/views/users/index.php -->
 <style>
 	/* Ensure the table header is fixed */
@@ -59,6 +60,7 @@
 							<th></th>
 							<th>Username</th>
 							<th>Email</th>
+							<th>Dept.</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -68,6 +70,7 @@
 							<td><?php echo $user->id; ?></td>
 							<td><?php echo $user->username; ?></td>
 							<td><?php echo $user->email; ?></td>
+							<td><?php echo $user->department; ?></td>
 							<td>
 								<a title="Edit" class="btn btn-sm btn-success"
 									href="<?php echo site_url('users/edit/'.$user->id); ?>"><i
@@ -284,8 +287,11 @@
 				var rowIdToDelete = extractIdFromUrl(deleteUrl); // ดึง id ออกมาจาก URL
 				$('#row_' + rowIdToDelete).remove();
 				//alert(rowIdToDelete);
-				var myButtonDismiss = document.getElementById('btndismissMessage_Index');
-				myButtonDismiss.click();
+
+				jQuery.noConflict();
+				$('#deleteModal').modal('hide');
+				// var myButtonDismiss = document.getElementById('btndismissMessage_Index');
+				// myButtonDismiss.click();
 
 			});
 

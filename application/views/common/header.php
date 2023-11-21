@@ -55,7 +55,7 @@
 		<ul class="navbar-nav">
 			<li class="nav-item">
 				<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-				
+
 			</li>
 			<!-- <li class="nav-item d-none d-sm-inline-block">
 				<a href="<php echo base_url('index.php/users/index'); ?>" class="nav-link">Home</a>
@@ -188,7 +188,7 @@
 			</li>
 		</ul>
 
-		
+
 	</nav>
 	<!-- /.navbar -->
 
@@ -210,13 +210,28 @@
 				<div class="info">
 					<div class="row">
 						<div class="col-6">
-							<a href="#" class="d-block">Itsared.H</a>
+						<span class="text-white">
+						<?php
+									// Access user data from the session
+									$user_data = $this->session->userdata('user_data');
+
+									if ($this->session->userdata('logged_in') && $user_data) {
+										// Display user-specific information
+										echo 'Welcome, ' . $user_data['username'] . '!';
+										echo '<p>Email: ' . $user_data['email'] . '</p>';
+										// Add more user-specific information as needed
+									} else {
+										// Handle the case when the user is not logged in
+										echo '<p>User not logged in.</p>';
+									}
+								?>
+						</span>
 						</div>
 						<div class="col-6">
 							<div class="row w-100">
-								<div class="col text-right">
-									<a href="<?php echo site_url('login/index'); ?>" class="small"><u> ออกจากระบบ
-										</u></a>
+								<div class="col-12 text-right">
+									<a href="<?php echo site_url('users/logout'); ?>" class="right badge badge-danger small"><i class="fa-solid fa-right-from-bracket"></i> logout
+										</a>
 								</div>
 							</div>
 						</div>
@@ -256,7 +271,7 @@
 
 			<!-- Button to trigger the modal invisible-->
 			<button id="btnMessageModal" type="button" class="btn btn-primary invisible" data-toggle="modal"
-					data-target="#messageModal"></button>
+				data-target="#messageModal"></button>
 			<!-- /.sidebar-menu -->
 		</div>
 		<!-- /.sidebar -->
@@ -274,16 +289,9 @@
 						</h5>
 					</div><!-- /.col -->
 					<div class="col-sm-6">
-						<!-- <ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a href="#">Home</a></li>
-							<li class="breadcrumb-item active">Dashboard v1</li>
-						</ol> -->
 
 						<!-- Display flash messages -->
 						<?php if ($this->session->flashdata('success_message')): ?>
-						<!-- <div class="alert alert-success">
-		<php echo $this->session->flashdata('success_message'); ?>
-	</div> -->
 
 						<input id="inputMessage" class="form-control invisible" type="text" name="inputMessage"
 							value="<?= ($this->session->flashdata('success_message')) ?>">
@@ -323,9 +331,7 @@
 						</div>
 
 						<?php elseif  ($this->session->flashdata('error_message')): ?>
-						<!-- <div class="alert alert-danger">
-		<php echo $this->session->flashdata('error_message'); ?>
-	</div> -->
+
 						<input id="inputMessage" class="form-control invisible" type="text" name="inputMessage"
 							value="<?= ($this->session->flashdata('error_message')) ?>">
 

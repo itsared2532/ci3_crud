@@ -20,6 +20,12 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+
+		 // Check if the user is logged in
+		 if (!$this->session->userdata('logged_in')) {
+            // If not logged in, redirect to the login page
+            redirect('login/index');
+        }
 		//printr($data);
 			$data['title'] = 'Welcome to CodeIgniter!';
 			$this->load->view('common/header', $data);
