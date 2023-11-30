@@ -1,4 +1,3 @@
-
 <!-- application/views/users/index.php -->
 <style>
 	/* Ensure the table header is fixed */
@@ -11,7 +10,27 @@
 		/* Ensure it's above other elements */
 	}
 
+	/* Additional CSS for the vertically oriented table */
+	#verticalTable {
+		width: auto;
+		margin-top: 20px;
+		/* Adjust as needed */
+	}
+
+	#verticalTable th,
+	#verticalTable td {
+		text-align: left;
+		padding: 8px;
+		border-bottom: 1px solid #ddd;
+		/* Add a border between columns */
+	}
+
 </style>
+
+
+<div id="container" class="">
+
+</div>
 
 <!-- test version 1.01 test comment -->
 
@@ -26,6 +45,9 @@
 					<!-- ในไฟล์ views/your_view.php -->
 					<button title="Delete Selected" id="deleteSelected" class="btn btn-sm btn-danger"><i
 							class="fa-solid fa-calendar-xmark"></i> Del.Selected</button>
+					<!-- Button to Convert to Div -->
+					<!-- <button onclick="convertToVerticalTable()">Convert to Div</button> -->
+
 				</div>
 				<div class="col-6">
 
@@ -53,47 +75,42 @@
 			<!-- thead-light -->
 		</h5>
 		<p class="card-text">
-			<div class="">
-				<table id="tbUser" class="table table-hover table-sm">
-					<thead class="alert-primary">
-						<tr>
-							<th></th>
-							<th>Username</th>
-							<th>Email</th>
-							<th>Dept.</th>
-							<th>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php foreach ($users as $user): ?>
-						<tr id="row_<?php echo $user->id; ?>">
-							<td><?php echo $user->id; ?></td>
-							<td><?php echo $user->username; ?></td>
-							<td><?php echo $user->email; ?></td>
-							<td><?php echo $user->department; ?></td>
-							<td>
-								<a title="Edit" class="btn btn-sm btn-success"
-									href="<?php echo site_url('users/edit/'.$user->id); ?>"><i
-										class="fa-solid fa-pencil"></i></a> |
-								<!-- <a class="btn btn-sm btn-danger delete-link"
+			<table id="tbUser" class="table table-hover table-sm">
+				<thead class="alert-primary">
+					<tr>
+						<th></th>
+						<th>Username</th>
+						<th>Email</th>
+						<th>Dept.</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($users as $user): ?>
+					<tr id="row_<?php echo $user->id; ?>">
+						<td><?php echo $user->id; ?></td>
+						<td><?php echo $user->username; ?></td>
+						<td><?php echo $user->email; ?></td>
+						<td><?php echo $user->department; ?></td>
+						<td>
+							<a title="Edit" class="btn btn-sm btn-success"
+								href="<?php echo site_url('users/edit/'.$user->id); ?>"><i
+									class="fa-solid fa-pencil"></i></a> |
+							<!-- <a class="btn btn-sm btn-danger delete-link"
 								href="<php echo site_url('users/delete/'.$user->id); ?>"
 								onclick="return confirm('Are you sure?')">Delete</a> -->
 
-								<a title="Delete" class="btn btn-sm btn-danger delete-link"
-									href="<?php echo site_url('users/delete/'.$user->id); ?>" data-toggle="modal"
-									data-target="#deleteModal" data-username="<?php echo $user->username; ?>"><i
-										class="fa-solid fa-trash"></i></a>
+							<a title="Delete" class="btn btn-sm btn-danger delete-link"
+								href="<?php echo site_url('users/delete/'.$user->id); ?>" data-toggle="modal"
+								data-target="#deleteModal" data-username="<?php echo $user->username; ?>"><i
+									class="fa-solid fa-trash"></i></a>
 
-							</td>
-						</tr>
-						<?php endforeach; ?>
-					</tbody>
+						</td>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
 
-				</table>
-			</div>
-
-
-
+			</table>
 		</p>
 	</div>
 </div>
@@ -166,6 +183,9 @@
 
 
 <script>
+	// Convert DataTable to div-based layout
+
+
 	$(document).ready(function () {
 		var table = $('#tbUser').DataTable({
 			// buttons: ['colvis'],
@@ -177,8 +197,7 @@
 			}],
 			dom: 'Bfrtip',
 			// lBfrtip
-			buttons: [
-				{
+			buttons: [{
 					extend: 'copyHtml5',
 					exportOptions: {
 						columns: ':not(:last-child)' // Exclude the last column
@@ -210,21 +229,6 @@
 				}
 			]
 
-		});
-
-
-		$('#submitBtn').on('click', function () {
-			// Check if a file is selected
-			if ($('#fileInput')[0].files.length === 0) {
-				showAlert('Please choose a file before submitting.');
-				//alert('Please choose a file before submitting.');
-				// Show the modal
-				//$('#fileModal').modal('show');
-				return false; // Prevent form submission
-			}
-
-			// If a file is selected, submit the form
-			$('#uploadForm').submit();
 		});
 
 		// เมื่อปุ่มลบถูกคลิก
@@ -265,6 +269,54 @@
 		});
 
 	});
+
+
+	// Convert DataTable to vertically oriented table
+	function convertToVerticalTable() {
+		// Assuming you have a DataTable with the ID "tbUser"
+var table = $('#tbUser').DataTable();
+var rows = table.rows().data();
+
+// Create a container to hold the grid
+var container = $('<div class="container"></div>');
+
+// Iterate through rows and create a Bootstrap grid
+rows.each(function (index, row) {
+    // Create a new row for each DataTable row
+    var rowElement = $('<div class="row"></div>');
+
+    // Iterate through cells and create columns
+    $.each(row, function (key, value) {
+        // Create a column for each DataTable cell
+        var colElement = $('<div class="col-3">' + value + '</div>');
+        rowElement.append(colElement);
+    });
+
+    // Append the row to the container
+    container.append(rowElement);
+});
+
+// Append the container to the document
+$('#container').append(container);
+	}
+
+
+
+	$('#submitBtn').on('click', function () {
+		// Check if a file is selected
+		if ($('#fileInput')[0].files.length === 0) {
+			showAlert('Please choose a file before submitting.');
+			//alert('Please choose a file before submitting.');
+			// Show the modal
+			//$('#fileModal').modal('show');
+			return false; // Prevent form submission
+		}
+
+		// If a file is selected, submit the form
+		$('#uploadForm').submit();
+	});
+
+
 
 	// ใช้ Event Delegation สำหรับลิงก์ Delete
 	$(document).on('click', '.delete-link', function (event) {

@@ -5,6 +5,7 @@
 	<title>ci3_crud</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="<?php echo base_url('/public/adminlte.min.css'); ?>">
 	<link rel="stylesheet" href="<?php echo base_url('/public/Bootstrap/css/bootstrap.min.css'); ?>">
 	<link rel="stylesheet" href="<?php echo base_url('/public/DataTables/datatables.min.css'); ?>">
 	<link rel="stylesheet" href="<?php echo base_url('/public/DataTables_Checkbox/css/dataTables.checkboxes.css'); ?>">
@@ -12,12 +13,13 @@
 	<link rel="stylesheet" href="<?php echo base_url('/public/buttons.dataTables.min.css'); ?>">
 
 
-	<link rel="stylesheet" href="<?php echo base_url('/public/adminlte.min.css'); ?>">
+	
 	<link rel="stylesheet" href="<?php echo base_url('/public/fontawesome/css/all.min.css'); ?>">
 	<link rel="stylesheet" href="<?php echo base_url('/public/fontawesome/css/fontawesome.min.css'); ?>">
 
 
 	<script src="<?php echo base_url('/public/DataTables/jQuery-3.7.0/jquery-3.7.0.min.js'); ?>"></script>
+	<script src="<?php echo base_url('/public/adminlte.min.js'); ?>"></script>
 	<script src="<?php echo base_url('/public/Bootstrap/js/bootstrap.min.js'); ?>"></script>
 	<script src="<?php echo base_url('/public/Bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
 	<script src="<?php echo base_url('/public/DataTables/datatables.min.js'); ?>"></script>
@@ -31,7 +33,7 @@
 	<script src="<?php echo base_url('/public/buttons.colVis.min.js'); ?>"></script>
 
 
-	<script src="<?php echo base_url('/public/adminlte.min.js'); ?>"></script>
+	
 	<script src="<?php echo base_url('/public/fontawesome/js/all.min.js'); ?>"></script>
 	<script src="<?php echo base_url('/public/fontawesome/js/fontawesome.min.js'); ?>"></script>
 
@@ -261,7 +263,7 @@
 							<i class="fa-solid fa-bars-staggered"></i>
 							<p>
 								User Lists
-								<span class="right badge badge-danger">New</span>
+								<!-- <span class="right badge badge-danger">New</span> -->
 							</p>
 						</a>
 					</li>
